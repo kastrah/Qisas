@@ -68,7 +68,7 @@ export default function Home() {
                 Searching...
               </span>
             ) : (
-              "Find my story"
+              "Guide me"
             )}
           </button>
         </div>

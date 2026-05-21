@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { qisasLookup, QisasResult, SeerahEvent, QuranVerse } from "@/lib/qisas-engine";
+import { fetchGuidance } from "@/lib/qisas-guidance";
 
 export default function ResultContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const [result, setResult] = useState<QisasResult | null>(null);
+  const [guidance, setGuidance] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [guidanceLoading, setGuidanceLoading] = useState(false);
 
   useEffect(() => {
     if (!query) return;
@@ -17,6 +20,42 @@ export default function ResultContent() {
     qisasLookup(query).then((r) => {
       setResult(r);
       setLoading(false);
+
+      // Fetch LLM guidance if we have a match
+      if (r.matched && r.verse && r.seerah && r.seerah.length > 0) {
+        setGuidanceLoading(true);
+        const primaryEvent = r.seerah[0];
+        fetchGuidance({
+          userInput: query,
+          emotion: r.emotion || "",
+          tags: r.tags || [],
+          verse: {
+            verse_key: r.verse.verse_key,
+            arabic: r.verse.arabic,
+            translation: r.verse.translation,
+          },
+          seerah: {
+            title: primaryEvent.event_title,
+            title_ar: primaryEvent.event_title_ar,
+            description: primaryEvent.event_description || "",
+            period: primaryEvent.event_period,
+            year: primaryEvent.event_year_label || "",
+            lessons: primaryEvent.event_lessons || "",
+            location: primaryEvent.location_name || "",
+            significance: primaryEvent.event_significance || "",
+          },
+          hadith: primaryEvent.hadith_refs?.[0]
+            ? {
+                collection: primaryEvent.hadith_refs[0].collection,
+                narrator: primaryEvent.hadith_refs[0].narrator,
+                text: primaryEvent.hadith_refs[0].text_en,
+              }
+            : undefined,
+        }).then((g) => {
+          setGuidance(g);
+          setGuidanceLoading(false);
+        });
+      }
     });
   }, [query]);
 
@@ -64,6 +103,8 @@ export default function ResultContent() {
     );
   }
 
+  const primaryEvent = result.seerah?.[0];
+
   return (
     <div className="animate-slide-up space-y-8">
       {/* Emotion tag */}
@@ -85,18 +126,51 @@ export default function ResultContent() {
         )}
       </div>
 
-      {/* Quran Verse */}
+      {/* LLM Guidance — the main content */}
+      {guidanceLoading ? (
+        <div className="bg-card border border-theme rounded-2xl p-6 md:p-8">
+          <div className="animate-pulse space-y-3">
+            <div className="h-4 bg-[var(--color-border)] rounded w-3/4"></div>
+            <div className="h-4 bg-[var(--color-border)] rounded w-full"></div>
+            <div className="h-4 bg-[var(--color-border)] rounded w-5/6"></div>
+            <div className="h-4 bg-[var(--color-border)] rounded w-2/3"></div>
+          </div>
+          <p className="text-xs text-muted mt-4 text-center">Reflecting on your situation...</p>
+        </div>
+      ) : guidance ? (
+        <div className="bg-card border border-theme rounded-2xl p-6 md:p-8">
+          <p className="text-base md:text-lg leading-relaxed text-[var(--color-text)] whitespace-pre-line">
+            {guidance}
+          </p>
+        </div>
+      ) : null}
+
+      {/* Quran Verse — reference card */}
       {result.verse && <VerseCard verse={result.verse} />}
 
-      {/* Seerah Stories */}
-      {result.seerah && result.seerah.length > 0 && (
+      {/* Seerah Story — reference card */}
+      {primaryEvent && <EventReference event={primaryEvent} />}
+
+      {/* Other seerah stories */}
+      {result.seerah && result.seerah.length > 1 && (
         <div>
-          <h2 className="font-heading text-xl font-semibold mb-4 text-center">
-            From the Prophet&apos;s life ﷺ
-          </h2>
-          <div className="space-y-4">
-            {result.seerah.map((event, i) => (
-              <EventCard key={event.event_id || i} event={event} />
+          <h3 className="font-heading text-base font-semibold mb-3 text-center text-muted">
+            More stories that connect
+          </h3>
+          <div className="space-y-3">
+            {result.seerah.slice(1).map((event, i) => (
+              <Link
+                key={event.event_id || i}
+                href={`/event/${event.event_id}`}
+                className="block bg-card border border-theme rounded-xl p-4 hover:border-accent/30 transition-all group"
+              >
+                <h4 className="font-heading text-sm font-semibold group-hover:text-accent transition-colors">
+                  {event.event_title}
+                </h4>
+                <p className="text-xs text-muted mt-1">
+                  {event.event_description?.substring(0, 120)}...
+                </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -114,19 +188,19 @@ export default function ResultContent() {
 
 function VerseCard({ verse }: { verse: QuranVerse }) {
   return (
-    <div className="bg-card border border-theme rounded-2xl p-6 md:p-8">
-      <div className="text-center mb-4">
+    <div className="bg-card border border-theme rounded-2xl p-5 md:p-6">
+      <div className="text-center mb-3">
         <span className="text-xs text-muted uppercase tracking-wider">
           Quran {verse.verse_key}
         </span>
       </div>
       <p
-        className="font-arabic text-2xl md:text-3xl leading-loose text-verse text-center mb-6"
+        className="font-arabic text-xl md:text-2xl leading-loose text-verse text-center mb-4"
         dir="rtl"
       >
         {verse.arabic}
       </p>
-      <p className="text-base md:text-lg text-center text-[var(--color-text)] leading-relaxed mb-4 italic">
+      <p className="text-sm md:text-base text-center text-[var(--color-text)] leading-relaxed mb-3 italic">
         &ldquo;{verse.translation}&rdquo;
       </p>
       <div className="text-center">
@@ -145,7 +219,7 @@ function VerseCard({ verse }: { verse: QuranVerse }) {
   );
 }
 
-function EventCard({ event }: { event: SeerahEvent }) {
+function EventReference({ event }: { event: SeerahEvent }) {
   const periodLabels: Record<string, string> = {
     pre_hijrah_makkah: "Meccan Period",
     hijrah: "The Hijrah",
@@ -158,66 +232,26 @@ function EventCard({ event }: { event: SeerahEvent }) {
       href={`/event/${event.event_id}`}
       className="block bg-card border border-theme rounded-2xl p-5 hover:border-accent/30 transition-all group"
     >
-      <div className="flex items-start justify-between mb-2">
-        <div>
-          <span className="text-xs text-accent font-medium">
-            {periodLabels[event.event_period] || event.event_period}
-            {event.event_year_label && ` · ${event.event_year_label}`}
-          </span>
-          {event.event_is_major && (
-            <span className="ml-2 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">
-              Major Event
-            </span>
-          )}
-        </div>
-      </div>
-      <h3 className="font-heading text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
+      <span className="text-xs text-accent font-medium">
+        {periodLabels[event.event_period] || event.event_period}
+        {event.event_year_label && ` · ${event.event_year_label}`}
+      </span>
+      <h3 className="font-heading text-base font-semibold mt-1 group-hover:text-accent transition-colors">
         {event.event_title}
       </h3>
       {event.event_title_ar && (
-        <p className="font-arabic text-base text-verse mb-2" dir="rtl">
+        <p className="font-arabic text-sm text-verse mt-1" dir="rtl">
           {event.event_title_ar}
         </p>
       )}
-      <p className="text-sm text-muted leading-relaxed mb-3">
-        {event.event_description?.substring(0, 200)}
-        {event.event_description && event.event_description.length > 200 && "..."}
-      </p>
       {event.event_lessons && (
-        <div className="bg-[var(--color-bg)] rounded-lg p-3 mb-3">
-          <p className="text-xs text-muted font-medium mb-1">Lessons</p>
-          <p className="text-sm text-[var(--color-text)] leading-relaxed">
-            {event.event_lessons}
-          </p>
-        </div>
+        <p className="text-xs text-muted mt-2 leading-relaxed">
+          {event.event_lessons}
+        </p>
       )}
-      {event.location_name && (
-        <p className="text-xs text-muted">📍 {event.location_name}</p>
-      )}
-      {event.matched_tags && event.matched_tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          {event.matched_tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs bg-accent/5 border border-accent/20 rounded-full px-2.5 py-0.5 text-accent"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-      {event.hadith_refs && event.hadith_refs.length > 0 && (
-        <div className="mt-3 pt-3 border-t border-theme">
-          <p className="text-xs text-muted font-medium mb-1">
-            📖 {event.hadith_refs[0].collection} #{event.hadith_refs[0].hadith_number}
-          </p>
-          <p className="text-xs text-muted leading-relaxed">
-            {event.hadith_refs[0].text_en?.substring(0, 150)}
-            {event.hadith_refs[0].text_en && event.hadith_refs[0].text_en.length > 150 && "..."}
-          </p>
-        </div>
-      )}
-      <p className="text-xs text-accent mt-3 group-hover:underline">Read full story →</p>
+      <p className="text-xs text-accent mt-2 group-hover:underline">
+        Read full story →
+      </p>
     </Link>
   );
 }
