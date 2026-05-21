@@ -1,0 +1,543 @@
+{
+  "emotions": [
+    {
+      "emotion": "grief",
+      "aliases": [
+        "loss",
+        "mourning",
+        "sadness",
+        "lost someone",
+        "died",
+        "passed away",
+        "grieving",
+        "bereaved",
+        "funeral",
+        "miss them",
+        "lost",
+        "losing",
+        "miss"
+      ],
+      "tag_slugs": [
+        "sabr",
+        "sabr_jamil",
+        "tawakkul"
+      ],
+      "quran_search_terms": [
+        "patience",
+        "loss",
+        "grief",
+        "return to Allah",
+        "death"
+      ],
+      "description": "When someone is experiencing loss and grief"
+    },
+    {
+      "emotion": "anxiety",
+      "aliases": [
+        "scared",
+        "anxious",
+        "worried",
+        "fear",
+        "uncertain",
+        "future",
+        "panic",
+        "overwhelmed",
+        "stressed",
+        "nervous"
+      ],
+      "tag_slugs": [
+        "tawakkul",
+        "taqwa",
+        "sabr"
+      ],
+      "quran_search_terms": [
+        "fear",
+        "anxiety",
+        "trust in Allah",
+        "do not despair",
+        "Allah is sufficient"
+      ],
+      "description": "When someone is feeling anxious, worried, or fearful about the future"
+    },
+    {
+      "emotion": "anger",
+      "aliases": [
+        "angry",
+        "unfair",
+        "injustice",
+        "oppression",
+        "betrayed",
+        "furious",
+        "rage",
+        "frustrated",
+        "wronged"
+      ],
+      "tag_slugs": [
+        "adl",
+        "sabr",
+        "courage"
+      ],
+      "quran_search_terms": [
+        "justice",
+        "patience",
+        "oppression",
+        "restraint",
+        "anger"
+      ],
+      "description": "When someone is experiencing anger or witnessing injustice"
+    },
+    {
+      "emotion": "loneliness",
+      "aliases": [
+        "alone",
+        "lonely",
+        "isolated",
+        "abandoned",
+        "no one",
+        "nobody cares",
+        "left out",
+        "excluded",
+        "solitary"
+      ],
+      "tag_slugs": [
+        "brotherhood",
+        "muwasat",
+        "karam"
+      ],
+      "quran_search_terms": [
+        "brotherhood",
+        "community",
+        "Allah is with you",
+        "companionship",
+        "togetherness"
+      ],
+      "description": "When someone feels alone, isolated, or abandoned"
+    },
+    {
+      "emotion": "failure",
+      "aliases": [
+        "failing",
+        "doubt",
+        "not good enough",
+        "hopeless",
+        "worthless",
+        "useless",
+        "inadequate",
+        "imposter",
+        "failure"
+      ],
+      "tag_slugs": [
+        "sabr",
+        "tawakkul",
+        "ikhlas"
+      ],
+      "quran_search_terms": [
+        "despair",
+        "hope",
+        "Allah's mercy",
+        "try again",
+        "never give up"
+      ],
+      "description": "When someone doubts themselves or feels like a failure"
+    },
+    {
+      "emotion": "gratitude",
+      "aliases": [
+        "grateful",
+        "happy",
+        "blessed",
+        "thankful",
+        "content",
+        "alhamdulillah",
+        "appreciative",
+        "joyful"
+      ],
+      "tag_slugs": [
+        "shukr",
+        "tawadu",
+        "taqwa"
+      ],
+      "quran_search_terms": [
+        "gratitude",
+        "thankful",
+        "blessings",
+        "Allah favors",
+        "if you are grateful"
+      ],
+      "description": "When someone is feeling grateful, blessed, or joyful"
+    },
+    {
+      "emotion": "family",
+      "aliases": [
+        "marriage",
+        "divorce",
+        "parent",
+        "child",
+        "family",
+        "spouse",
+        "husband",
+        "wife",
+        "mother",
+        "father",
+        "kids",
+        "son",
+        "daughter"
+      ],
+      "tag_slugs": [
+        "family",
+        "sabr",
+        "adl"
+      ],
+      "quran_search_terms": [
+        "family",
+        "marriage",
+        "parents",
+        "children",
+        "spouses"
+      ],
+      "description": "When someone is dealing with family or relationship issues"
+    },
+    {
+      "emotion": "purpose",
+      "aliases": [
+        "purpose",
+        "direction",
+        "meaning",
+        "why am I here",
+        "what's the point",
+        "existential",
+        "empty",
+        "void"
+      ],
+      "tag_slugs": [
+        "ikhlas",
+        "tawhid",
+        "taqwa"
+      ],
+      "quran_search_terms": [
+        "purpose of creation",
+        "Allah created you",
+        "meaning of life",
+        "worship",
+        "tawhid"
+      ],
+      "description": "When someone is searching for meaning, purpose, or direction"
+    },
+    {
+      "emotion": "temptation",
+      "aliases": [
+        "sin",
+        "temptation",
+        "mistake",
+        "guilty",
+        "shame",
+        "wrongdoing",
+        "repentance",
+        "tawbah",
+        "regret"
+      ],
+      "tag_slugs": [
+        "taqwa",
+        "ikhlas",
+        "forgiveness"
+      ],
+      "quran_search_terms": [
+        "repentance",
+        "forgiveness",
+        "Allah forgives",
+        "turn back to Allah",
+        "mercy"
+      ],
+      "description": "When someone is struggling with sin, temptation, or guilt"
+    },
+    {
+      "emotion": "persecution",
+      "aliases": [
+        "persecuted",
+        "oppressed",
+        "bullied",
+        "targeted",
+        "discriminated",
+        "hated",
+        "attacked",
+        "threatened"
+      ],
+      "tag_slugs": [
+        "sabr",
+        "sabr_jamil",
+        "courage",
+        "migration"
+      ],
+      "quran_search_terms": [
+        "persecution",
+        "patience",
+        "Allah is with the patient",
+        "oppression",
+        "refuge"
+      ],
+      "description": "When someone is being persecuted or oppressed for their beliefs"
+    },
+    {
+      "emotion": "wealth",
+      "aliases": [
+        "money",
+        "rich",
+        "poor",
+        "greed",
+        "poverty",
+        "wealth",
+        "debt",
+        "financial",
+        "broke",
+        "materialism"
+      ],
+      "tag_slugs": [
+        "karam",
+        "tawakkul",
+        "tawadu"
+      ],
+      "quran_search_terms": [
+        "wealth",
+        "charity",
+        "provision",
+        "Allah provides",
+        "greed"
+      ],
+      "description": "When someone is struggling with financial issues or materialism"
+    },
+    {
+      "emotion": "mortality",
+      "aliases": [
+        "dying",
+        "death",
+        "afterlife",
+        "what happens",
+        "mortality",
+        "end of life",
+        "hereafter",
+        "akhira"
+      ],
+      "tag_slugs": [
+        "taqwa",
+        "tawhid",
+        "sabr"
+      ],
+      "quran_search_terms": [
+        "death",
+        "afterlife",
+        "hereafter",
+        "return to Allah",
+        "paradise"
+      ],
+      "description": "When someone is contemplating death, mortality, or the afterlife"
+    },
+    {
+      "emotion": "community",
+      "aliases": [
+        "community",
+        "friends",
+        "belonging",
+        "ummah",
+        "together",
+        "solidarity",
+        "support",
+        "sisterhood",
+        "brotherhood"
+      ],
+      "tag_slugs": [
+        "brotherhood",
+        "muwasat",
+        "equality"
+      ],
+      "quran_search_terms": [
+        "brotherhood",
+        "believers are brothers",
+        "community",
+        "unity",
+        "cooperation"
+      ],
+      "description": "When someone is seeking community, belonging, or solidarity"
+    },
+    {
+      "emotion": "leadership",
+      "aliases": [
+        "leader",
+        "responsibility",
+        "decision",
+        "authority",
+        "boss",
+        "managing",
+        "team",
+        "authority figure"
+      ],
+      "tag_slugs": [
+        "leadership",
+        "shura",
+        "adl",
+        "amanah"
+      ],
+      "quran_search_terms": [
+        "leadership",
+        "consultation",
+        "justice",
+        "trust",
+        "responsibility"
+      ],
+      "description": "When someone is dealing with leadership challenges or responsibilities"
+    },
+    {
+      "emotion": "change",
+      "aliases": [
+        "moving",
+        "new place",
+        "leaving",
+        "change",
+        "starting over",
+        "transition",
+        "relocation",
+        "new chapter"
+      ],
+      "tag_slugs": [
+        "migration",
+        "tawakkul",
+        "sabr"
+      ],
+      "quran_search_terms": [
+        "migration",
+        "Allah's earth is spacious",
+        "new beginning",
+        "hijrah",
+        "change"
+      ],
+      "description": "When someone is going through major life changes or transitions"
+    },
+    {
+      "emotion": "forgiveness",
+      "aliases": [
+        "forgive",
+        "forgave",
+        "can't forgive",
+        "grudge",
+        "bitter",
+        "resentment",
+        "let go",
+        "move on"
+      ],
+      "tag_slugs": [
+        "forgiveness",
+        "mercy",
+        "sabr"
+      ],
+      "quran_search_terms": [
+        "forgiveness",
+        "pardon",
+        "mercy",
+        "let go",
+        "Allah loves the forgivers"
+      ],
+      "description": "When someone is struggling to forgive or seeking forgiveness"
+    },
+    {
+      "emotion": "justice",
+      "aliases": [
+        "justice",
+        "fair",
+        "accountability",
+        "rights",
+        "equality",
+        "equity",
+        "wronged",
+        "unjust"
+      ],
+      "tag_slugs": [
+        "adl",
+        "huquq",
+        "shura"
+      ],
+      "quran_search_terms": [
+        "justice",
+        "fairness",
+        "witness for Allah",
+        "stand for justice",
+        "rights"
+      ],
+      "description": "When someone is seeking justice or dealing with unfairness"
+    },
+    {
+      "emotion": "sacrifice",
+      "aliases": [
+        "sacrifice",
+        "giving up",
+        "hard choice",
+        "dunya",
+        "letting go",
+        "trade-off",
+        "compromise"
+      ],
+      "tag_slugs": [
+        "sacrifice",
+        "ikhlas",
+        "tawakkul"
+      ],
+      "quran_search_terms": [
+        "sacrifice",
+        "sincerity",
+        "Allah compensates",
+        "giving",
+        "trusting Allah"
+      ],
+      "description": "When someone is making sacrifices or difficult choices"
+    },
+    {
+      "emotion": "dawah",
+      "aliases": [
+        "sharing Islam",
+        "calling others",
+        "dawah",
+        "message",
+        "spread the word",
+        "invite",
+        "convey"
+      ],
+      "tag_slugs": [
+        "da_wah",
+        "wisdom",
+        "sabr_jamil"
+      ],
+      "quran_search_terms": [
+        "invite to Allah",
+        "wisdom",
+        "beautiful preaching",
+        "convey",
+        "witness"
+      ],
+      "description": "When someone is sharing or calling others to Islam"
+    },
+    {
+      "emotion": "conflict",
+      "aliases": [
+        "war",
+        "battle",
+        "fight",
+        "conflict",
+        "enemy",
+        "attack",
+        "defense",
+        "struggle"
+      ],
+      "tag_slugs": [
+        "jihad",
+        "courage",
+        "tawakkul"
+      ],
+      "quran_search_terms": [
+        "struggle",
+        "fight in Allah's way",
+        "patience in battle",
+        "victory",
+        "courage"
+      ],
+      "description": "When someone is facing conflict, warfare, or struggle"
+    }
+  ]
+}

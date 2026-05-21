@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #faf9f6;
+    --color-surface: #ffffff;
+    --color-card: #f5f3ee;
+    --color-border: #e5e0d8;
+    --color-accent: #4a7c59;
+    --color-text: #2d2d2d;
+    --color-text-muted: #6b6b6b;
+    --color-verse: #3d6a4b;
+  }
+
+  .dark {
+    --color-bg: #0f0f0f;
+    --color-surface: #1a1a1a;
+    --color-card: #222222;
+    --color-border: #333333;
+    --color-accent: #d4a574;
+    --color-text: #f5f0eb;
+    --color-text-muted: #a09080;
+    --color-verse: #e8c89e;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .font-arabic {
+    font-family: 'Amiri', 'Scheherazade New', serif;
+  }
+}
+
+@layer utilities {
+  .text-verse {
+    color: var(--color-verse);
+  }
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-card {
+    background-color: var(--color-card);
+  }
+  .border-theme {
+    border-color: var(--color-border);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+}
